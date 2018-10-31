@@ -32,6 +32,7 @@ main() {
 
     # Now run the playbook
     echo "Running playbook now, go grab a ☕️"
+    ansible-galaxy install -r requirements.yml
     ansible-playbook main.yml -i inventory -K
 }
 
