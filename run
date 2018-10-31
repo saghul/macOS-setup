@@ -1,2 +1,38 @@
 #!/usr/bin/env bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+
+exists() {
+    return $(hash $1 > /dev/null 2>&1)
+}
+
+main() {
+    # First, make sure Command Line Tools are installed
+    if [[ ! -d "/Library/Developer/CommandLineTools" ]]; then
+        sudo xcode-select --install
+    fi
+
+    # Make sure Ansible is installed
+    if ! exists "ansible-playbook"; then
+        echo "Ansible is NOT installed"
+        if ! exists "pip"; then
+            echo "pip is NOT installed"
+            if ! exists "easy_install"; then
+                echo "easy_install is not available, cannot continue"
+                exit 1
+            fi
+
+            sudo easy_install pip
+        fi
+
+        pip install ansible
+    fi
+
+    # Now run the playbook
+    echo "Running playbook now, go grab a ☕️"
+    ansible-playbook main.yml -i inventory -K
+}
+
+main $@
