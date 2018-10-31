@@ -10,6 +10,7 @@ Anyone is of course welcome to fork this project and taylor it to their needs.
 
 * A **blank** computer running macOS 10.14 (Mojave)
 * Sign-in into the Mac App Store
+* Add the Terminal app to the *Full Disk Access* section on *Security And Privacy*
 
 ## Installation
 
