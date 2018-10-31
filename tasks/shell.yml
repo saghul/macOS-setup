@@ -7,5 +7,5 @@
   become: yes
 
 - name: Change user shell to Homebrew installed Bash
-  shell: chsh -s /usr/local/bin/bash $USER
+  shell: chsh -s /usr/local/bin/bash "{{ ansible_user_id }}"
   become: yes
