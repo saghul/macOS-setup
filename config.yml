@@ -20,6 +20,7 @@ homebrew_installed_packages_main:
   - moreutils
   - nmap
   - node@10
+  - the_silver_searcher
   - tmux
   - vim
   - watchman
@@ -39,6 +40,7 @@ homebrew_cask_apps_main:
   - font-yanone-kaffeesatz
   - gimp
   - google-chrome-beta
+  - gpg-suite
   - inkscape
   - iterm2
   - keeweb
