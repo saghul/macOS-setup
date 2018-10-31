@@ -33,6 +33,10 @@
         - mas_installed_apps: "{{ mas_apps_main }}"
       tags: ['mas']
 
+    - name: Accept Xcode license
+      shell: xcodebuild -license accept
+      become: yes
+
     - name: Install apps from the Mac App Store (extras)
       import_role:
         name: geerlingguy.mas
