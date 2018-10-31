@@ -1,0 +1,11 @@
+---
+- name: Add shell to /etc/shells
+  lineinfile:
+    path: /etc/shells
+    line: /usr/local/bin/bash
+    state: present
+  become: yes
+
+- name: Change user shell to Homebrew installed Bash
+  shell: chsh -s /usr/local/bin/bash $USER
+  become: yes

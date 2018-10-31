@@ -1,0 +1,280 @@
+---
+- name: Close any open System Preferences panes
+  shell: osascript -e 'tell application "System Preferences" to quit'
+
+- name: Dark mode (macOS >= 10.14)
+  shell: defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+
+- name: Disable the sound effects on boot
+  shell: nvram SystemAudioVolume=" "
+  become: yes
+
+- name: Disable transparency in the menu bar and elsewhere on macOS >= Yosemite
+  shell: defaults write com.apple.universalaccess reduceTransparency -bool true
+
+- name: Disable the “Are you sure you want to open this application?” dialog
+  shell: defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+- name: Disable automatic termination of inactive apps
+  shell: defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
+
+- name: Disable “natural” (Lion-style) scrolling
+  shell: defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+- name: Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
+  shell: defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+- name: Disable press-and-hold for keys in favor of key repeat
+  shell: defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+- name: Set a blazingly fast keyboard repeat rate
+  shell: |
+    defaults write NSGlobalDomain KeyRepeat -int 1
+    defaults write NSGlobalDomain InitialKeyRepeat -int 10
+
+- name: Set language and text formats
+  shell: |
+    defaults write NSGlobalDomain AppleLanguages -array "en" "nl"
+    defaults write NSGlobalDomain AppleLocale -string "en_NL@currency=EUR"
+    defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
+    defaults write NSGlobalDomain AppleMetricUnits -bool true
+
+- name: Set the timezone; see `sudo systemsetup -listtimezones` for other values
+  shell: systemsetup -settimezone "Europe/Amsterdam" > /dev/null
+  become: yes
+
+- name: Require password immediately after sleep or screen saver begins
+  shell: |
+    defaults write com.apple.screensaver askForPassword -int 1
+    defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+- name: Create screenshots directory
+  file:
+    path: "{{ ansible_env.HOME }}/Screenshots"
+    state: directory
+
+- name: Save screenshots to a directory
+  shell: defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
+
+- name: Save screenshots in PNG format (other options BMP, GIF, JPG, PDF, TIFF)
+  shell: defaults write com.apple.screencapture type -string "png"
+
+- name: Enable subpixel font rendering on non-Apple LCDs
+  # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
+  shell: defaults write NSGlobalDomain AppleFontSmoothing -int 1
+
+- name: Enable HiDPI display modes (requires restart)
+  shell: defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+  become: yes
+
+- name: Show icons for hard drives, servers, and removable media on the desktop
+  shell: |
+    defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+    defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
+    defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+    defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+
+- name: Finder - show all filename extensions
+  shell: defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+- name: Finder - show status bar
+  shell: defaults write com.apple.finder ShowStatusBar -bool true
+
+- name: Finder - show path bar
+  shell: defaults write com.apple.finder ShowPathbar -bool true
+
+- name: Display full POSIX path as Finder window title
+  shell: defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+- name: Keep folders on top when sorting by name
+  shell: defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+- name: When performing a search, search the current folder by default
+  shell: defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+- name: Disable the warning when changing a file extension
+  shell: defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+- name: Avoid creating .DS_Store files on network or USB volumes
+  shell: |
+    defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+    defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+- name: Automatically open a new Finder window when a volume is mounted
+  shell: |
+    defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
+    defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
+    defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
+
+- name: Use list view in all Finder windows by default
+  shell: defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+- name: Disable the warning before emptying the Trash
+  shell: defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+- name: Enable AirDrop over Ethernet and on unsupported Macs running Lion
+  shell: defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+
+- name: Show the ~/Library folder
+  shell: chflags nohidden ~/Library
+
+- name: Show the /Volumes folder
+  shell: chflags nohidden /Volumes
+  become: yes
+
+- name: Set the icon size of Dock items to 24 pixels and max of 46
+  shell: |
+    defaults write com.apple.dock tilesize -int 24
+    defaults write com.apple.dock largesize -int 46
+
+- name: Change minimize/maximize window effect
+  shell: defaults write com.apple.dock mineffect -string "scale"
+
+- name: Minimize windows into their application’s icon
+  shell: defaults write com.apple.dock minimize-to-application -bool true
+
+- name: Show indicator lights for open applications in the Dock
+  shell: defaults write com.apple.dock show-process-indicators -bool true
+
+- name: Don’t animate opening applications from the Dock
+  shell: defaults write com.apple.dock launchanim -bool false
+
+- name: Speed up Mission Control animations
+  shell: defaults write com.apple.dock expose-animation-duration -float 0.1
+
+- name: Disable Dashboard
+  shell: defaults write com.apple.dashboard mcx-disabled -bool true
+
+- name: Don’t show Dashboard as a Space
+  shell: defaults write com.apple.dock dashboard-in-overlay -bool true
+
+- name: Don’t automatically rearrange Spaces based on most recent use
+  shell: defaults write com.apple.dock mru-spaces -bool false
+
+- name: Automatically hide and show the Dock
+  shell: defaults write com.apple.dock autohide -bool true
+
+- name: Don’t show recent applications in Dock
+  shell: defaults write com.apple.dock show-recents -bool false
+
+- name: Hot corners
+  # Possible values:
+  #  0: no-op
+  #  2: Mission Control
+  #  3: Show application windows
+  #  4: Desktop
+  #  5: Start screen saver
+  #  6: Disable screen saver
+  #  7: Dashboard
+  # 10: Put display to sleep
+  # 11: Launchpad
+  # 12: Notification Center
+  #
+  # My preferences:
+  # Top left screen corner → Mission Control
+  # Bottom left screen corner → Start screen saver
+  shell: |
+    defaults write com.apple.dock wvous-tl-corner -int 2
+    defaults write com.apple.dock wvous-tl-modifier -int 0
+    defaults write com.apple.dock wvous-bl-corner -int 5
+    defaults write com.apple.dock wvous-bl-modifier -int 0
+
+# Apple Mail
+#
+
+- name: Disable send and reply animations in Mail.app
+  shell: |
+    defaults write com.apple.mail DisableReplyAnimations -bool true
+    defaults write com.apple.mail DisableSendAnimations -bool true
+
+- name: Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
+  shell: defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+
+- name: Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app
+  shell: defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\U21a9"
+
+- name: Display emails in threaded mode, sorted by date (oldest at the top)
+  shell: |
+    defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
+    defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
+    defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
+
+- name: Disable inline attachments (just show the icons)
+  shell: defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
+
+# Spotlight
+#
+
+#- name: Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before.
+#  shell: defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+#  become: yes
+
+- name: Change indexing order and disable some search results
+  shell: |
+    defaults write com.apple.spotlight orderedItems -array \
+        '{"enabled" = 1;"name" = "APPLICATIONS";}' \
+        '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
+        '{"enabled" = 0;"name" = "DIRECTORIES";}' \
+        '{"enabled" = 0;"name" = "PDF";}' \
+        '{"enabled" = 0;"name" = "FONTS";}' \
+        '{"enabled" = 0;"name" = "DOCUMENTS";}' \
+        '{"enabled" = 0;"name" = "MESSAGES";}' \
+        '{"enabled" = 0;"name" = "CONTACT";}' \
+        '{"enabled" = 0;"name" = "EVENT_TODO";}' \
+        '{"enabled" = 0;"name" = "IMAGES";}' \
+        '{"enabled" = 0;"name" = "BOOKMARKS";}' \
+        '{"enabled" = 0;"name" = "MUSIC";}' \
+        '{"enabled" = 0;"name" = "MOVIES";}' \
+        '{"enabled" = 0;"name" = "PRESENTATIONS";}' \
+        '{"enabled" = 0;"name" = "SPREADSHEETS";}' \
+        '{"enabled" = 0;"name" = "SOURCE";}' \
+        '{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
+        '{"enabled" = 0;"name" = "MENU_OTHER";}' \
+        '{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
+        '{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
+        '{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
+        '{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+
+- name: Load new settings before rebuilding the index
+  shell: killall mds > /dev/null 2>&1
+  become: yes
+
+- name: Make sure indexing is enabled for the main volume
+  shell: mdutil -i on / > /dev/null
+  become: yes
+
+- name: Rebuild the index from scratch
+  shell: mdutil -E / > /dev/null
+  become: yes
+
+# iTerm
+#
+
+- name: Don’t display the annoying prompt when quitting iTerm
+  shell: defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+
+# Time Machine
+#
+
+- name: Prevent Time Machine from prompting to use new hard drives as backup volume
+  shell: defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+
+# Activity Monitor
+#
+
+- name: Show the main window when launching Activity Monitor
+  shell: defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
+
+- name: Visualize CPU usage in the Activity Monitor Dock icon
+  shell: defaults write com.apple.ActivityMonitor IconType -int 5
+
+- name: Show all processes in Activity Monitor
+  shell: defaults write com.apple.ActivityMonitor ShowCategory -int 0
+
+- name: Sort Activity Monitor results by CPU usage
+  shell: |
+    defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
+    defaults write com.apple.ActivityMonitor SortDirection -int 0
+
+- name: Show battery percentage
+  shell: defaults write com.apple.menuextra.battery ShowPercent -bool true

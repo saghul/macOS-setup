@@ -1,0 +1,43 @@
+---
+- hosts: all
+  connection: local
+
+  vars_files:
+    - config.yml
+
+  tasks:
+    - name: Install Homebrew packages (main)
+      import_role:
+        name: geerlingguy.homebrew
+      vars:
+        - homebrew_installed_packages: "{{ homebrew_installed_packages_main }}"
+        - homebrew_taps: "{{ homebrew_taps_all }}"
+        - homebrew_cask_appdir: "{{ homebrew_cask_appdir_all }}"
+        - homebrew_cask_apps: "{{ homebrew_cask_apps_main }}"
+      tags: ['homebrew']
+
+    - name: Install Homebrew packages (extras)
+      import_role:
+        name: geerlingguy.homebrew
+      vars:
+        - homebrew_installed_packages: "{{ homebrew_installed_packages_extra }}"
+        - homebrew_taps: "{{ homebrew_taps_all }}"
+        - homebrew_cask_appdir: "{{ homebrew_cask_appdir_all }}"
+        - homebrew_cask_apps: "{{ homebrew_cask_apps_extra }}"
+      tags: ['homebrew-extra']
+
+    - name: Install apps from the Mac App Store
+      import_role:
+        name: geerlingguy.mas
+      vars:
+        - mas_installed_apps: "{{ mas_apps }}"
+      tags: ['mas']
+
+    - import_tasks: tasks/extra-packages.yml
+      tags: ['extra-packages']
+
+    - import_tasks: tasks/macos-defaults.yml
+      tags: ['macos-defaults']
+
+    - import_tasks: tasks/shell.yml
+      tags: ['shell']

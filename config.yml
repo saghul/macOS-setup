@@ -1,0 +1,66 @@
+---
+homebrew_taps_all:
+  - homebrew/core
+  - homebrew/cask
+  - homebrew/cask-fonts
+  - homebrew/cask-versions
+
+homebrew_cask_appdir_all: /Applications
+
+homebrew_installed_packages_main:
+  - autoconf
+  - automake
+  - bash
+  - bash-completion@2
+  - cmake
+  - coreutils
+  - editorconfig
+  - go
+  - mas
+  - moreutils
+  - nmap
+  - node@10
+  - tmux
+  - vim
+  - watchman
+  - wget
+
+homebrew_installed_packages_extra:
+  - youtube-dl
+
+homebrew_cask_apps_main:
+  - docker
+  - dropbox
+  - firefox-beta
+  - font-noto-sans
+  - font-source-code-pro
+  - font-source-code-pro-for-powerline
+  - font-ubuntu
+  - font-yanone-kaffeesatz
+  - gimp
+  - google-chrome-beta
+  - inkscape
+  - iterm2
+  - keeweb
+  - libreoffice
+  - safari-technology-preview
+  - slack
+  - visual-studio-code
+  - wireshark
+
+homebrew_cask_apps_extra:
+  - plex-media-player
+  - spotify
+  - vlc
+
+mas_apps:
+  - { id: 404360415, name: "Blink Pro" }
+  - { id: 417375580, name: "BetterSnapTool" }
+  - { id: 896450579, name: "Textual" }
+  - { id: 533696630, name: "Webcam Settings" }
+  - { id: 409183694, name: "Keynote" }
+  - { id: 425424353, name: "The Unarchiver" }
+  - { id: 497799835, name: "Xcode" }
+
+npm_packages: []
+pip_packages: []
