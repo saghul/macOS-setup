@@ -33,11 +33,14 @@
         - mas_installed_apps: "{{ mas_apps }}"
       tags: ['mas']
 
-    - import_tasks: tasks/extra-packages.yml
+    - name: Install extra packages from npm and pip
+      import_tasks: tasks/extra-packages.yml
       tags: ['extra-packages']
 
-    - import_tasks: tasks/macos-defaults.yml
+    - name: Apply some sane macOS defaults
+      import_tasks: tasks/macos-defaults.yml
       tags: ['macos-defaults']
 
-    - import_tasks: tasks/shell.yml
+    - name: Change user shell
+      import_tasks: tasks/shell.yml
       tags: ['shell']
