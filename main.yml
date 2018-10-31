@@ -26,12 +26,19 @@
         - homebrew_cask_apps: "{{ homebrew_cask_apps_extra }}"
       tags: ['homebrew-extra']
 
-    - name: Install apps from the Mac App Store
+    - name: Install apps from the Mac App Store (main)
       import_role:
         name: geerlingguy.mas
       vars:
-        - mas_installed_apps: "{{ mas_apps }}"
+        - mas_installed_apps: "{{ mas_apps_main }}"
       tags: ['mas']
+
+    - name: Install apps from the Mac App Store (extras)
+      import_role:
+        name: geerlingguy.mas
+      vars:
+        - mas_installed_apps: "{{ mas_apps_extra }}"
+      tags: ['mas-extra']
 
     - name: Install extra packages from npm and pip
       import_tasks: tasks/extra-packages.yml

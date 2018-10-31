@@ -55,14 +55,17 @@ homebrew_cask_apps_extra:
   - spotify
   - vlc
 
-mas_apps:
-  - { id: 404360415, name: "Blink Pro" }
+mas_apps_main:
   - { id: 417375580, name: "BetterSnapTool" }
-  - { id: 896450579, name: "Textual" }
   - { id: 533696630, name: "Webcam Settings" }
   - { id: 409183694, name: "Keynote" }
   - { id: 425424353, name: "The Unarchiver" }
   - { id: 497799835, name: "Xcode" }
+
+mas_apps_extra:
+  - { id: 404360415, name: "Blink Pro" }
+  - { id: 896450579, name: "Textual" }
+  - { id: 668208984, name: "GIPHY CAPTURE" }
 
 npm_packages: []
 pip_packages: []
