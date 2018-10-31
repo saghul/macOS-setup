@@ -30,6 +30,7 @@ homebrew_installed_packages_extra:
   - youtube-dl
 
 homebrew_cask_apps_main:
+  - xquartz
   - docker
   - dropbox
   - firefox-beta
