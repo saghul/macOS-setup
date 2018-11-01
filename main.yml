@@ -6,46 +6,29 @@
     - config.yml
 
   tasks:
-    - name: Install Homebrew packages (main)
+    - name: Install Homebrew packages
       import_role:
         name: geerlingguy.homebrew
       vars:
-        - homebrew_installed_packages: "{{ homebrew_installed_packages_main }}"
+        - homebrew_installed_packages: "{{ homebrew_installed_packages_main + homebrew_installed_packages_extra }}"
         - homebrew_taps: "{{ homebrew_taps_all }}"
         - homebrew_cask_appdir: "{{ homebrew_cask_appdir_all }}"
-        - homebrew_cask_apps: "{{ homebrew_cask_apps_main }}"
+        - homebrew_cask_apps: "{{ homebrew_cask_apps_main + homebrew_cask_apps_extra }}"
       tags: ['homebrew']
-
-    - name: Install Homebrew packages (extras)
-      import_role:
-        name: geerlingguy.homebrew
-      vars:
-        - homebrew_installed_packages: "{{ homebrew_installed_packages_extra }}"
-        - homebrew_taps: "{{ homebrew_taps_all }}"
-        - homebrew_cask_appdir: "{{ homebrew_cask_appdir_all }}"
-        - homebrew_cask_apps: "{{ homebrew_cask_apps_extra }}"
-      tags: ['homebrew-extra']
 
     - name: Link Homebrew nodejs
       shell: brew link node@10 --force
 
-    - name: Install apps from the Mac App Store (main)
+    - name: Install apps from the Mac App Store
       import_role:
         name: geerlingguy.mas
       vars:
-        - mas_installed_apps: "{{ mas_apps_main }}"
+        - mas_installed_apps: "{{ mas_apps_main + mas_apps_extra }}"
       tags: ['mas']
 
     - name: Accept Xcode license
       shell: xcodebuild -license accept
       become: yes
-
-    - name: Install apps from the Mac App Store (extras)
-      import_role:
-        name: geerlingguy.mas
-      vars:
-        - mas_installed_apps: "{{ mas_apps_extra }}"
-      tags: ['mas-extra']
 
     - name: Install extra packages from npm and pip
       import_tasks: tasks/extra-packages.yml
