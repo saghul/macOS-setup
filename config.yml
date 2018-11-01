@@ -16,6 +16,7 @@ homebrew_installed_packages_main:
   - coreutils
   - editorconfig
   - go
+  - htop
   - mas
   - moreutils
   - nmap
