@@ -31,6 +31,7 @@ homebrew_installed_packages_extra:
 
 homebrew_cask_apps_main:
   - xquartz
+  - android-studio
   - docker
   - dropbox
   - firefox-beta
@@ -48,10 +49,13 @@ homebrew_cask_apps_main:
   - libreoffice
   - safari-technology-preview
   - slack
+  - thunderbird-beta
   - visual-studio-code
   - wireshark
 
 homebrew_cask_apps_extra:
+  - joplin
+  - nextcloud
   - plex-media-player
   - spotify
   - vlc
@@ -69,5 +73,7 @@ mas_apps_extra:
   - { id: 896450579, name: "Textual" }
   - { id: 668208984, name: "GIPHY CAPTURE" }
 
-npm_packages: []
+npm_packages:
+  - react-native-cli
+
 pip_packages: []
