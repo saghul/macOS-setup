@@ -26,6 +26,9 @@
         - homebrew_cask_apps: "{{ homebrew_cask_apps_extra }}"
       tags: ['homebrew-extra']
 
+    - name: Link Homebrew nodejs
+      shell: brew link node@10 --force
+
     - name: Install apps from the Mac App Store (main)
       import_role:
         name: geerlingguy.mas
