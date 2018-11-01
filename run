@@ -9,6 +9,12 @@ exists() {
 }
 
 main() {
+    # This is script must not be run as root
+    if [[ $EUID -eq 0 ]]; then
+        echo "This script must NOT be run as root"
+        exit 1
+    fi
+
     # First, make sure Command Line Tools are installed
     if [[ ! -d "/Library/Developer/CommandLineTools" ]]; then
         sudo xcode-select --install
