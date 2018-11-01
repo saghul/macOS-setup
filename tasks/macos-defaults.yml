@@ -63,6 +63,9 @@
   # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
   shell: defaults write NSGlobalDomain AppleFontSmoothing -int 1
 
+- name: Enable font smoothing
+  shell: defaults write NSGlobalDomain CGFontRenderingFontSmoothingDisabled -bool false
+
 - name: Enable HiDPI display modes (requires restart)
   shell: defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
   become: yes
