@@ -126,6 +126,7 @@
   shell: |
     defaults write com.apple.dock tilesize -int 24
     defaults write com.apple.dock largesize -int 46
+    defaults write com.apple.dock magnification -int 1
 
 - name: Change minimize/maximize window effect
   shell: defaults write com.apple.dock mineffect -string "scale"
