@@ -276,5 +276,17 @@
     defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
     defaults write com.apple.ActivityMonitor SortDirection -int 0
 
+# Menu bar
+#
+
 - name: Show battery percentage
   shell: defaults write com.apple.menuextra.battery ShowPercent -bool true
+
+- name: Show volume in menu bar
+  shell: |
+    defaults write com.apple.systemuiserver menuExtras -array \
+        "/System/Library/CoreServices/Menu Extras/Clock.menu" \
+        "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+        "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+        "/System/Library/CoreServices/Menu Extras/Volume.menu"
+    defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.volume" -bool true
