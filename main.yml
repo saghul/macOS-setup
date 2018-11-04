@@ -23,7 +23,7 @@
       ignore_errors: yes
 
     - name: Link Homebrew nodejs
-      shell: brew link node@10 --force
+      shell: brew link node@10 --force --overwrite
 
     - name: Install apps from the Mac App Store
       import_role:
