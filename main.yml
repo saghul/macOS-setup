@@ -10,11 +10,17 @@
       import_role:
         name: geerlingguy.homebrew
       vars:
+        - homebrew_taps:
+          - homebrew/core
+          - homebrew/cask
+          - homebrew/cask-fonts
+          - homebrew/cask-versions
+        - homebrew_cask_appdir: /Applications
+        - homebrew_cask_accept_external_apps: yes
         - homebrew_installed_packages: "{{ homebrew_installed_packages_main + homebrew_installed_packages_extra }}"
-        - homebrew_taps: "{{ homebrew_taps_all }}"
-        - homebrew_cask_appdir: "{{ homebrew_cask_appdir_all }}"
         - homebrew_cask_apps: "{{ homebrew_cask_apps_main + homebrew_cask_apps_extra }}"
       tags: ['homebrew']
+      ignore_errors: yes
 
     - name: Link Homebrew nodejs
       shell: brew link node@10 --force

@@ -1,12 +1,4 @@
 ---
-homebrew_taps_all:
-  - homebrew/core
-  - homebrew/cask
-  - homebrew/cask-fonts
-  - homebrew/cask-versions
-
-homebrew_cask_appdir_all: /Applications
-
 homebrew_installed_packages_main:
   - autoconf
   - automake
