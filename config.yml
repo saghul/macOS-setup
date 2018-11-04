@@ -41,6 +41,7 @@ homebrew_cask_apps_main:
   - keeweb
   - libreoffice
   - safari-technology-preview
+  - smcfancontrol
   - slack
   - thunderbird
   - visual-studio-code
