@@ -30,6 +30,7 @@ That will just run the *mas* tag. Multiple tags can be specified (comma separate
 Alas I couldn't automate everything, so here are the things that (still) need to
 be done manually:
 
+* Configure Spotlight
 * Configure screen resolution
 * Maps caps lock to control
 * On European keyboards, map § to backtick (Karabiner can be used for this)
