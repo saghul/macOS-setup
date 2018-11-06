@@ -12,9 +12,6 @@
 - name: Disable transparency in the menu bar and elsewhere on macOS >= Yosemite
   shell: defaults write com.apple.universalaccess reduceTransparency -bool true
 
-- name: Disable the “Are you sure you want to open this application?” dialog
-  shell: defaults write com.apple.LaunchServices LSQuarantine -bool false
-
 - name: Disable automatic termination of inactive apps
   shell: defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
@@ -249,3 +246,13 @@
         "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
         "/System/Library/CoreServices/Menu Extras/Volume.menu"
     defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.volume" -bool true
+
+# Gatekeeper
+#
+
+- name: Allow installing apps from anywhere
+  shell: spctl --master-disable
+  become: yes
+
+- name: Disable the “Are you sure you want to open this application?” dialog
+  shell: defaults write com.apple.LaunchServices LSQuarantine -bool false
