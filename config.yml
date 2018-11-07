@@ -40,6 +40,7 @@ homebrew_cask_apps_main:
   - iterm2
   - keeweb
   - libreoffice
+  - omnidisksweeper
   - safari-technology-preview
   - smcfancontrol
   - slack
