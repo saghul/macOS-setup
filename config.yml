@@ -5,11 +5,14 @@ homebrew_installed_packages_main:
   - bash
   - bash-completion@2
   - cmake
+  - cocoapods
   - coreutils
   - editorconfig
   - go
   - htop
+  - jq
   - mas
+  - maven
   - moreutils
   - nmap
   - node@10
@@ -38,6 +41,7 @@ homebrew_cask_apps_main:
   - gpg-suite
   - inkscape
   - iterm2
+  - java8
   - keeweb
   - libreoffice
   - omnidisksweeper
