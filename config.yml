@@ -46,7 +46,6 @@ homebrew_cask_apps_main:
   - libreoffice
   - omnidisksweeper
   - safari-technology-preview
-  - smcfancontrol
   - slack
   - thunderbird
   - visual-studio-code
@@ -65,6 +64,7 @@ mas_apps_main:
   - { id: 533696630, name: "Webcam Settings" }
   - { id: 409183694, name: "Keynote" }
   - { id: 425424353, name: "The Unarchiver" }
+  - { id: 1319778037, name: "iStat Menus" }
   - { id: 497799835, name: "Xcode" }
 
 mas_apps_extra:
