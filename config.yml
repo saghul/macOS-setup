@@ -73,6 +73,8 @@ mas_apps_extra:
   - { id: 668208984, name: "GIPHY CAPTURE" }
 
 npm_packages:
+  - install-local
+  - npm-check-updates
   - react-native-cli
 
 pip_packages: []
