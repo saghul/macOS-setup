@@ -4,6 +4,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+PATH=~/Library/Python/2.7/bin:$PATH
+
 exists() {
     return $(hash $1 > /dev/null 2>&1)
 }
@@ -33,7 +35,7 @@ main() {
             sudo easy_install pip
         fi
 
-        pip install ansible
+        pip install --user ansible
     fi
 
     # Now run the playbook
