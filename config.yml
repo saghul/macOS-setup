@@ -23,6 +23,7 @@ homebrew_installed_packages_main:
   - wget
 
 homebrew_installed_packages_extra:
+  - mps-youtube
   - youtube-dl
 
 homebrew_cask_apps_main:
@@ -31,19 +32,23 @@ homebrew_cask_apps_main:
   - docker
   - dropbox
   - firefox-beta
+  - firefox-nightly
   - font-noto-sans
   - font-source-code-pro
   - font-source-code-pro-for-powerline
   - font-ubuntu
   - font-yanone-kaffeesatz
+  - freesmug-chromium
   - gimp
   - google-chrome-beta
+  - google-chrome-canary
   - gpg-suite
   - inkscape
   - iterm2
   - java8
   - keeweb
   - libreoffice
+  - multifirefox
   - omnidisksweeper
   - safari-technology-preview
   - slack
@@ -54,6 +59,7 @@ homebrew_cask_apps_main:
 homebrew_cask_apps_extra:
   - joplin
   - nextcloud
+  - notable
   - plex-media-player
   - spotify
   - vlc
