@@ -54,6 +54,8 @@ homebrew_cask_apps_main:
   - safari-technology-preview
   - slack
   - thunderbird
+  - virtualbox
+  - virtualbox-extension-pack
   - visual-studio-code
   - wireshark
 
