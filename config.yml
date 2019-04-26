@@ -28,6 +28,7 @@ homebrew_installed_packages_extra:
 
 homebrew_cask_apps_main:
   - xquartz
+  - adoptopenjdk8
   - android-studio
   - docker
   - dropbox
@@ -46,7 +47,6 @@ homebrew_cask_apps_main:
   - gpg-suite
   - inkscape
   - iterm2
-  - java8
   - keeweb
   - libreoffice
   - multifirefox
@@ -60,7 +60,6 @@ homebrew_cask_apps_main:
   - wireshark
 
 homebrew_cask_apps_extra:
-  - joplin
   - nextcloud
   - notable
   - plex-media-player
