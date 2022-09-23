@@ -4,10 +4,14 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-PATH=~/Library/Python/2.7/bin:$PATH
-
-exists() {
-    return $(hash $1 > /dev/null 2>&1)
+yes_or_no() {
+    while true; do
+        read -p "$* [y/n]: " yn
+        case $yn in
+            [Yy]*) return 0  ;;
+            [Nn]*) return 1 ;;
+        esac
+    done
 }
 
 main() {
@@ -22,26 +26,25 @@ main() {
         sudo xcode-select --install
     fi
 
-    # Make sure Ansible is installed
-    if ! exists "ansible-playbook"; then
-        echo "Ansible is NOT installed"
-        if ! exists "pip"; then
-            echo "pip is NOT installed"
-            if ! exists "easy_install"; then
-                echo "easy_install is not available, cannot continue"
-                exit 1
-            fi
-
-            sudo easy_install pip
-        fi
-
-        pip install --user ansible
+    if [[ ! -d ".venv" ]]; then
+        echo "Creating a Python venv..."
+        /usr/bin/python3 -m venv .venv
+        source .venv/bin/activate
+        pip install ansible
+    else
+        echo "Activating existing venv..."
+        source .venv/bin/activate
     fi
 
     # Now run the playbook
-    echo "Running playbook now, go grab a ☕️"
-    ansible-galaxy install -r requirements.yml
-    ansible-playbook main.yml -i inventory -K
+    yes_or_no "Run the playbook?"
+    if [[ $? -eq 0 ]]; then
+        echo "Running playbook now, go grab a ☕️"
+        ansible-galaxy install -r requirements.yml
+        ansible-playbook main.yml -i inventory -K
+    fi
+
+    deactivate
 }
 
 main $@
