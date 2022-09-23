@@ -15,7 +15,6 @@ homebrew_installed_packages_main:
   - maven
   - moreutils
   - nmap
-  - node@10
   - the_silver_searcher
   - tmux
   - vim

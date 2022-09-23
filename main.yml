@@ -21,8 +21,27 @@
         - homebrew_cask_apps: "{{ homebrew_cask_apps_main + homebrew_cask_apps_extra }}"
       tags: ['homebrew']
 
-    - name: Link Homebrew nodejs
-      shell: brew link node@10 --force --overwrite
+    - name: Install nvm
+      become: no
+      ansible.builtin.shell: >
+        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash
+      args:
+        executable: /bin/bash
+        chdir: "$HOME"
+        creates: "$HOME/.nvm/nvm.sh"
+      tags: ['node']
+
+    - name: Install node
+      become: no
+      shell: >
+        . {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install {{ item }}
+      args:
+        executable: /bin/bash
+        chdir: "{{ ansible_env.HOME }}"
+        creates: "{{ ansible_env.HOME }}/.nvm/versions/{{ item }}"
+      loop:
+        - 16
+      tags: ['node']
 
     - name: Install apps from the Mac App Store
       import_role:
