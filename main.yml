@@ -8,7 +8,7 @@
   tasks:
     - name: Install Homebrew packages
       import_role:
-        name: geerlingguy.homebrew
+        name: geerlingguy.mac.homebrew
       vars:
         - homebrew_taps:
           - homebrew/core
@@ -26,7 +26,7 @@
 
     - name: Install apps from the Mac App Store
       import_role:
-        name: geerlingguy.mas
+        name: geerlingguy.mac.mas
       vars:
         - mas_installed_apps: "{{ mas_apps_main + mas_apps_extra }}"
       tags: ['mas']
