@@ -68,5 +68,3 @@ npm_packages:
   - install-local
   - npm-check-updates
   - react-native-cli
-
-pip_packages: []

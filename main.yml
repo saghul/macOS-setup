@@ -52,7 +52,7 @@
       shell: xcodebuild -license accept
       become: yes
 
-    - name: Install extra packages from npm and pip
+    - name: Install extra packages from npm
       import_tasks: tasks/extra-packages.yml
       tags: ['extra-packages']
 
