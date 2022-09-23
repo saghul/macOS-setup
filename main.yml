@@ -17,8 +17,6 @@
           - homebrew/cask-versions
         - homebrew_cask_appdir: /Applications
         - homebrew_cask_accept_external_apps: yes
-        - homebrew_installed_packages: "{{ homebrew_installed_packages_main + homebrew_installed_packages_extra }}"
-        - homebrew_cask_apps: "{{ homebrew_cask_apps_main + homebrew_cask_apps_extra }}"
       tags: ['homebrew']
 
     - name: Install nvm

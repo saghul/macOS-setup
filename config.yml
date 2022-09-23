@@ -1,5 +1,5 @@
 ---
-homebrew_installed_packages_main:
+homebrew_installed_packages:
   - autoconf
   - automake
   - bash
@@ -8,7 +8,6 @@ homebrew_installed_packages_main:
   - cocoapods
   - coreutils
   - editorconfig
-  - go
   - htop
   - jq
   - mas
@@ -20,63 +19,49 @@ homebrew_installed_packages_main:
   - vim
   - watchman
   - wget
-
-homebrew_installed_packages_extra:
-  - mps-youtube
   - youtube-dl
 
-homebrew_cask_apps_main:
-  - xquartz
-  - adoptopenjdk8
+homebrew_cask_apps:
   - android-studio
   - docker
-  - dropbox
+  - eloston-chromium
   - fastlane
   - firefox-beta
-  - firefox-nightly
   - font-noto-sans
+  - font-sauce-code-pro-nerd-font
   - font-source-code-pro
-  - font-source-code-pro-for-powerline
   - font-ubuntu
   - font-yanone-kaffeesatz
-  - freesmug-chromium
   - gimp
   - google-chrome-beta
   - google-chrome-canary
   - gpg-suite
   - inkscape
   - iterm2
-  - keeweb
+  - joplin
+  - karabiner-elements
   - libreoffice
-  - multifirefox
+  - nextcloud
   - omnidisksweeper
+  - plex
   - safari-technology-preview
   - slack
+  - spotify
   - thunderbird
   - virtualbox
   - virtualbox-extension-pack
   - visual-studio-code
-  - wireshark
-
-homebrew_cask_apps_extra:
-  - nextcloud
-  - notable
-  - plex-media-player
-  - spotify
   - vlc
   - whatsapp
+  - wireshark
 
-mas_apps_main:
+mas_apps:
   - { id: 417375580, name: "BetterSnapTool" }
   - { id: 533696630, name: "Webcam Settings" }
   - { id: 409183694, name: "Keynote" }
   - { id: 425424353, name: "The Unarchiver" }
   - { id: 1319778037, name: "iStat Menus" }
   - { id: 497799835, name: "Xcode" }
-
-mas_apps_extra:
-  - { id: 404360415, name: "Blink Pro" }
-  - { id: 896450579, name: "Textual" }
   - { id: 668208984, name: "GIPHY CAPTURE" }
 
 npm_packages:
