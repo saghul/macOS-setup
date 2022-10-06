@@ -4,18 +4,36 @@ homebrew_installed_packages:
   - automake
   - bash
   - bash-completion@2
+  - bat
+  - clang-format
   - cmake
   - cocoapods
   - coreutils
-  - editorconfig
+  - dust
+  - fd
+  - ffmpeg
+  - fzf
+  - gh
+  - go
+  - highlight
   - htop
+  - imagemagick
   - jq
   - mas
   - maven
   - moreutils
+  - neofetch
+  - neovim
+  - ninja
   - nmap
+  - onefetch
+  - ripgrep
+  - rustup-init
+  - starship
   - the_silver_searcher
+  - tldr
   - tmux
+  - tree
   - vim
   - watchman
   - wget
@@ -23,6 +41,9 @@ homebrew_installed_packages:
 
 homebrew_cask_apps:
   - android-studio
+  - balenaetcher
+  - blackhole-2ch
+  - brave-browser-beta
   - docker
   - eloston-chromium
   - fastlane
@@ -40,8 +61,12 @@ homebrew_cask_apps:
   - iterm2
   - joplin
   - karabiner-elements
+  - kitty
   - libreoffice
+  - logitech-options
+  - microsoft-edge-beta
   - nextcloud
+  - obs
   - omnidisksweeper
   - plex
   - safari-technology-preview
