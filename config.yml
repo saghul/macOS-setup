@@ -46,7 +46,6 @@ homebrew_cask_apps:
   - brave-browser-beta
   - docker
   - eloston-chromium
-  - fastlane
   - firefox-beta
   - font-noto-sans
   - font-sauce-code-pro-nerd-font
