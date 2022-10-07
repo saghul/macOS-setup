@@ -88,6 +88,11 @@ mas_installed_apps:
   - { id: 497799835, name: "Xcode" }
   - { id: 668208984, name: "GIPHY CAPTURE" }
 
+mas_uninstalled_apps:
+  - { id: 409201541, name: "Pages" }
+  - { id: 409203825, name: "Numbers" }
+  - { id: 682658836, name: "GarageBand" }
+
 npm_packages:
   - install-local
   - npm-check-updates
