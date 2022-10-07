@@ -8,20 +8,24 @@ Anyone is of course welcome to fork this project and taylor it to their needs.
 
 ## Prerequisites
 
-* A **blank** computer running macOS 10.14 (Mojave)
+* A **blank** computer running macOS 12.6 (Monterrey)
 * Sign-in into the Mac App Store
 * Add the Terminal app to the *Full Disk Access* section on *Security And Privacy*
 
 ## Installation
 
-Just execute the `run` script, everything is taken care of: `./run`
+```bash
+curl -s -L -o - https://raw.githubusercontent.com/saghul/macOS-setup/master/run | bash
+```
 
 ### Advanced
 
-All tasks have a tag atached to them (check `main.yml`), if one wants to run a
+All tasks have a tag attached to them (check `main.yml`), if one wants to run a
 single task, run the following:
 
-`ansible-playbook main.yml -i inventory -K --tags "mas"`
+```bash
+ansible-playbook main.yml -i inventory -K --tags "mas"
+```
 
 That will just run the *mas* tag. Multiple tags can be specified (comma separated).
 
