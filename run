@@ -39,9 +39,14 @@ main() {
     # Now run the playbook
     yes_or_no "Run the playbook?"
     if [[ $? -eq 0 ]]; then
+        CHECK_OPT=""
+        yes_or_no "Dry run?"
+        if [[ $? -eq 0 ]]; then
+            CHECK_OPT="--check"
+        fi
         echo "Running playbook now, go grab a ☕️"
         ansible-galaxy install -r requirements.yml
-        ansible-playbook main.yml -i inventory -K
+        ansible-playbook main.yml -i inventory -K ${CHECK_OPT}
     fi
 
     deactivate
