@@ -79,7 +79,7 @@ homebrew_cask_apps:
   - whatsapp
   - wireshark
 
-mas_apps:
+mas_installed_apps:
   - { id: 417375580, name: "BetterSnapTool" }
   - { id: 533696630, name: "Webcam Settings" }
   - { id: 409183694, name: "Keynote" }
