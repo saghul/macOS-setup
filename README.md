@@ -15,7 +15,7 @@ Anyone is of course welcome to fork this project and taylor it to their needs.
 ## Installation
 
 ```bash
-curl -s -L -o - https://raw.githubusercontent.com/saghul/macOS-setup/master/run | bash
+curl -sL https://raw.githubusercontent.com/saghul/macOS-setup/master/run | bash
 ```
 
 ### Advanced

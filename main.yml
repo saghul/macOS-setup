@@ -22,7 +22,7 @@
     - name: Install nvm
       become: no
       ansible.builtin.shell: >
-        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash
+        curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash
       args:
         executable: /bin/bash
         chdir: "$HOME"

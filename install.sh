@@ -10,6 +10,6 @@ rm -rf ${TARGET}
 mkdir ${TARGET}
 
 cd ${TARGET}
-curl -s -L -o - https://github.com/saghul/macOS-setup/archive/refs/heads/master.tar.gz | tar zx --strip-components 1
+curl -sL https://github.com/saghul/macOS-setup/archive/refs/heads/master.tar.gz | tar zx --strip-components 1
 
 exec ./run
