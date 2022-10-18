@@ -41,7 +41,6 @@ homebrew_installed_packages:
 
 homebrew_cask_apps:
   - android-studio
-  - balenaetcher
   - blackhole-2ch
   - brave-browser-beta
   - docker
@@ -55,7 +54,6 @@ homebrew_cask_apps:
   - gimp
   - google-chrome-beta
   - google-chrome-canary
-  - gpg-suite
   - inkscape
   - iterm2
   - joplin
