@@ -36,8 +36,6 @@ be done manually:
 
 * Configure Spotlight
 * Configure screen resolution
-* Maps caps lock to control
-* On European keyboards, map § to backtick (Karabiner can be used for this)
 
 ## Acknowledgements
 
