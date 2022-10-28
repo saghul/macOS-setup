@@ -63,6 +63,7 @@ homebrew_cask_apps:
   - libreoffice
   - logitech-options
   - microsoft-edge-beta
+  - monitorcontrol
   - nextcloud
   - obs
   - omnidisksweeper
