@@ -85,7 +85,6 @@ mas_installed_apps:
   - { id: 409183694, name: "Keynote" }
   - { id: 425424353, name: "The Unarchiver" }
   - { id: 1319778037, name: "iStat Menus" }
-  - { id: 497799835, name: "Xcode" }
   - { id: 668208984, name: "GIPHY CAPTURE" }
 
 mas_uninstalled_apps:
