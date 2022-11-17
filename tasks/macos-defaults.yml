@@ -2,20 +2,31 @@
 - name: Close any open System Preferences panes
   shell: osascript -e 'tell application "System Preferences" to quit'
 
-- name: Dark mode (macOS >= 10.14)
-  shell: defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
-
 - name: Disable the sound effects on boot
   shell: nvram SystemAudioVolume=" "
   become: yes
 
-- name: Disable transparency in the menu bar and elsewhere on macOS >= Yosemite
+- name: Set the timezone; see `sudo systemsetup -listtimezones` for other values
+  shell: systemsetup -settimezone "Europe/Amsterdam" > /dev/null
+  become: yes
+
+- name: Show the ~/Library folder
+  shell: chflags nohidden ~/Library
+
+- name: Show the /Volumes folder
+  shell: chflags nohidden /Volumes
+  become: yes
+
+- name: Dark mode
+  shell: defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+
+- name: Disable transparency
   shell: defaults write com.apple.universalaccess reduceTransparency -bool true
 
 - name: Disable automatic termination of inactive apps
   shell: defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
-- name: Disable “natural” (Lion-style) scrolling
+- name: Disable “natural” scrolling
   shell: defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 - name: Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
@@ -35,10 +46,6 @@
     defaults write NSGlobalDomain AppleLocale -string "en_NL@currency=EUR"
     defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
     defaults write NSGlobalDomain AppleMetricUnits -bool true
-
-- name: Set the timezone; see `sudo systemsetup -listtimezones` for other values
-  shell: systemsetup -settimezone "Europe/Amsterdam" > /dev/null
-  become: yes
 
 - name: Require password immediately after sleep or screen saver begins
   shell: |
@@ -115,13 +122,6 @@
 - name: Enable AirDrop over Ethernet and on unsupported Macs running Lion
   shell: defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
-- name: Show the ~/Library folder
-  shell: chflags nohidden ~/Library
-
-- name: Show the /Volumes folder
-  shell: chflags nohidden /Volumes
-  become: yes
-
 - name: Set the icon size of Dock items to 24 pixels and max of 46
   shell: |
     defaults write com.apple.dock tilesize -int 24
@@ -172,13 +172,17 @@
   # 12: Notification Center
   #
   # My preferences:
-  # Top left screen corner → Mission Control
+  # Bottom right screen corner → Mission Control
   # Bottom left screen corner → Start screen saver
   shell: |
-    defaults write com.apple.dock wvous-tl-corner -int 2
-    defaults write com.apple.dock wvous-tl-modifier -int 0
+    defaults write com.apple.dock wvous-br-corner -int 2
+    defaults write com.apple.dock wvous-br-modifier -int 0
     defaults write com.apple.dock wvous-bl-corner -int 5
     defaults write com.apple.dock wvous-bl-modifier -int 0
+    defaults write com.apple.dock wvous-tr-corner -int 0
+    defaults write com.apple.dock wvous-tr-modifier -int 0
+    defaults write com.apple.dock wvous-tl-corner -int 0
+    defaults write com.apple.dock wvous-tl-modifier -int 0
 
 # Apple Mail
 #
