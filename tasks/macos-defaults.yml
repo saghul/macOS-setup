@@ -1,4 +1,8 @@
 ---
+
+# TODO: Migrate some actions (notably dict-add operations) to osx_defaults when
+# Ansible gains support for it: https://github.com/ansible-collections/community.general/issues/238
+
 - name: Close any open System Preferences panes
   shell: osascript -e 'tell application "System Preferences" to quit'
 
@@ -18,39 +22,104 @@
   become: yes
 
 - name: Dark mode
-  shell: defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleInterfaceStyle
+    type: string
+    value: Dark
 
 - name: Disable transparency
-  shell: defaults write com.apple.universalaccess reduceTransparency -bool true
+  community.general.osx_defaults:
+    domain: com.apple.universalaccess
+    key: reduceTransparency
+    type: bool
+    value: true
 
 - name: Disable automatic termination of inactive apps
-  shell: defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: NSDisableAutomaticTermination
+    type: bool
+    value: true
 
 - name: Disable “natural” scrolling
-  shell: defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: com.apple.swipescrolldirection
+    type: bool
+    value: false
 
 - name: Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
-  shell: defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleKeyboardUIMode
+    type: int
+    value: 3
 
 - name: Disable press-and-hold for keys in favor of key repeat
-  shell: defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: ApplePressAndHoldEnabled
+    type: bool
+    value: false
 
 - name: Set a blazingly fast keyboard repeat rate
-  shell: |
-    defaults write NSGlobalDomain KeyRepeat -int 1
-    defaults write NSGlobalDomain InitialKeyRepeat -int 10
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: KeyRepeat
+    type: int
+    value: 1
 
-- name: Set language and text formats
-  shell: |
-    defaults write NSGlobalDomain AppleLanguages -array "en" "nl"
-    defaults write NSGlobalDomain AppleLocale -string "en_NL@currency=EUR"
-    defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-    defaults write NSGlobalDomain AppleMetricUnits -bool true
+- name: Set a blazingly fast keyboard repeat rate (2)
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: InitialKeyRepeat
+    type: int
+    value: 10
 
-- name: Require password immediately after sleep or screen saver begins
-  shell: |
-    defaults write com.apple.screensaver askForPassword -int 1
-    defaults write com.apple.screensaver askForPasswordDelay -int 0
+- name: Set languages
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleLanguages
+    type: array
+    value:
+      - en
+      - nl
+
+- name: Set locale
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleLocale
+    type: string
+    value: en_NL@currency=EUR
+
+- name: Set measurement units
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleMeasurementUnits
+    type: string
+    value: Centimeters
+
+- name: Use metric
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleMetricUnits
+    type: bool
+    value: true
+
+- name: Require password after sleep or screen saver begins
+  community.general.osx_defaults:
+    domain: com.apple.screensaver
+    key: askForPassword
+    type: int
+    value: 1
+
+- name: Delay for requiring password after sleep or screen saver begins
+  community.general.osx_defaults:
+    domain: com.apple.screensaver
+    key: askForPasswordDelay
+    type: int
+    value: 0
 
 - name: Create screenshots directory
   file:
@@ -58,142 +127,361 @@
     state: directory
 
 - name: Save screenshots to a directory
-  shell: defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
+  community.general.osx_defaults:
+    domain: com.apple.screencapture
+    key: location
+    type: string
+    value: "{{ ansible_env.HOME }}/Screenshots"
 
-- name: Save screenshots in PNG format (other options BMP, GIF, JPG, PDF, TIFF)
-  shell: defaults write com.apple.screencapture type -string "png"
+- name: Save screenshots in PNG format
+  # Other options BMP, GIF, JPG, PDF, TIFF
+  community.general.osx_defaults:
+    domain: com.apple.screencapture
+    key: type
+    type: string
+    value: png
 
 - name: Enable subpixel font rendering on non-Apple LCDs
   # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
-  shell: defaults write NSGlobalDomain AppleFontSmoothing -int 1
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleFontSmoothing
+    type: int
+    value: 1
 
 - name: Enable font smoothing
-  shell: defaults write NSGlobalDomain CGFontRenderingFontSmoothingDisabled -bool false
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: CGFontRenderingFontSmoothingDisabled
+    type: bool
+    value: false
 
 - name: Enable HiDPI display modes (requires restart)
-  shell: defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+  community.general.osx_defaults:
+    domain: /Library/Preferences/com.apple.windowserver
+    key: DisplayResolutionEnabled
+    type: bool
+    value: true
   become: yes
 
-- name: Show icons for hard drives, servers, and removable media on the desktop
-  shell: |
-    defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-    defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
-    defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
-    defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+- name: Show icons for external hard drives on the desktop
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowExternalHardDrivesOnDesktop
+    type: bool
+    value: true
+
+- name: Show icons for hard drives on the desktop
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowHardDrivesOnDesktop
+    type: bool
+    value: true
+
+- name: Show icons for mounted servers on the desktop
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowMountedServersOnDesktop
+    type: bool
+    value: true
+
+- name: Show icons for removable media on the desktop
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowRemovableMediaOnDesktop
+    type: bool
+    value: true
 
 - name: Finder - show all filename extensions
-  shell: defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleShowAllExtensions
+    type: bool
+    value: true
 
 - name: Finder - show status bar
-  shell: defaults write com.apple.finder ShowStatusBar -bool true
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowStatusBar
+    type: bool
+    value: true
 
 - name: Finder - show path bar
-  shell: defaults write com.apple.finder ShowPathbar -bool true
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowPathbar
+    type: bool
+    value: true
 
 - name: Display full POSIX path as Finder window title
-  shell: defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: _FXShowPosixPathInTitle
+    type: bool
+    value: true
 
 - name: Keep folders on top when sorting by name
-  shell: defaults write com.apple.finder _FXSortFoldersFirst -bool true
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: _FXSortFoldersFirst
+    type: bool
+    value: true
 
 - name: When performing a search, search the current folder by default
-  shell: defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: FXDefaultSearchScope
+    type: string
+    value: SCcf
 
 - name: Disable the warning when changing a file extension
-  shell: defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: FXEnableExtensionChangeWarning
+    type: bool
+    value: false
 
-- name: Avoid creating .DS_Store files on network or USB volumes
-  shell: |
-    defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-    defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+- name: Avoid creating .DS_Store files on network volumes
+  community.general.osx_defaults:
+    domain: com.apple.desktopservices
+    key: DSDontWriteNetworkStores
+    type: bool
+    value: true
+
+- name: Avoid creating .DS_Store files on USB volumes
+  community.general.osx_defaults:
+    domain: com.apple.desktopservices
+    key: DSDontWriteUSBStores
+    type: bool
+    value: true
+
+- name: Automatically open read-only volumes
+  community.general.osx_defaults:
+    domain: com.apple.frameworks.diskimages
+    key: auto-open-ro-root
+    type: bool
+    value: true
+
+- name: Automatically open read-write volumes
+  community.general.osx_defaults:
+    domain: com.apple.frameworks.diskimages
+    key: auto-open-rw-root
+    type: bool
+    value: true
 
 - name: Automatically open a new Finder window when a volume is mounted
-  shell: |
-    defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
-    defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
-    defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: OpenWindowForNewRemovableDisk
+    type: bool
+    value: true
 
 - name: Use list view in all Finder windows by default
-  shell: defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: FXPreferredViewStyle
+    type: string
+    value: Nlsv
 
 - name: Disable the warning before emptying the Trash
-  shell: defaults write com.apple.finder WarnOnEmptyTrash -bool false
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: WarnOnEmptyTrash
+    type: bool
+    value: false
 
-- name: Enable AirDrop over Ethernet and on unsupported Macs running Lion
-  shell: defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+- name: Enable AirDrop over Ethernet
+  community.general.osx_defaults:
+    domain: com.apple.NetworkBrowser
+    key: BrowseAllInterfaces
+    type: bool
+    value: true
 
-- name: Set the icon size of Dock items to 24 pixels and max of 46
-  shell: |
-    defaults write com.apple.dock tilesize -int 24
-    defaults write com.apple.dock largesize -int 46
-    defaults write com.apple.dock magnification -int 1
+- name: Set the icon size of Dock items to 24
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    type: int
+    value: 24
+
+- name: Set the max icon size of Dock items to 46
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: largesize
+    type: int
+    value: 46
+
+- name: Set magnification for Dock items
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: magnification
+    type: int
+    value: 1
 
 - name: Change minimize/maximize window effect
-  shell: defaults write com.apple.dock mineffect -string "scale"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: mineffect
+    type: string
+    value: scale
 
-- name: Minimize windows into their application’s icon
-  shell: defaults write com.apple.dock minimize-to-application -bool true
+- name: Minimize windows into their application's icon
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: minimize-to-application
+    type: bool
+    value: true
 
 - name: Show indicator lights for open applications in the Dock
-  shell: defaults write com.apple.dock show-process-indicators -bool true
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: show-process-indicators
+    type: bool
+    value: true
 
-- name: Don’t animate opening applications from the Dock
-  shell: defaults write com.apple.dock launchanim -bool false
+- name: Don't animate opening applications from the Dock
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: launchanim
+    type: bool
+    value: false
 
 - name: Speed up Mission Control animations
-  shell: defaults write com.apple.dock expose-animation-duration -float 0.1
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: expose-animation-duration
+    type: float
+    value: 0.1
 
 - name: Disable Dashboard
-  shell: defaults write com.apple.dashboard mcx-disabled -bool true
+  community.general.osx_defaults:
+    domain: com.apple.dashboard
+    key: mcx-disabled
+    type: bool
+    value: true
 
-- name: Don’t show Dashboard as a Space
-  shell: defaults write com.apple.dock dashboard-in-overlay -bool true
+- name: Don't show Dashboard as a Space
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: dashboard-in-overlay
+    type: bool
+    value: true
 
-- name: Don’t automatically rearrange Spaces based on most recent use
-  shell: defaults write com.apple.dock mru-spaces -bool false
+- name: Don't automatically rearrange Spaces based on most recent use
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: mru-spaces
+    type: bool
+    value: false
 
 - name: Automatically hide and show the Dock
-  shell: defaults write com.apple.dock autohide -bool true
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: true
 
-- name: Don’t show recent applications in Dock
-  shell: defaults write com.apple.dock show-recents -bool false
+- name: Don't show recent applications in Dock
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: show-recents
+    type: bool
+    value: false
 
-- name: Hot corners
-  # Possible values:
-  #  0: no-op
-  #  2: Mission Control
-  #  3: Show application windows
-  #  4: Desktop
-  #  5: Start screen saver
-  #  6: Disable screen saver
-  #  7: Dashboard
-  # 10: Put display to sleep
-  # 11: Launchpad
-  # 12: Notification Center
-  #
-  # My preferences:
-  # Bottom right screen corner → Mission Control
-  # Bottom left screen corner → Start screen saver
-  shell: |
-    defaults write com.apple.dock wvous-br-corner -int 2
-    defaults write com.apple.dock wvous-br-modifier -int 0
-    defaults write com.apple.dock wvous-bl-corner -int 5
-    defaults write com.apple.dock wvous-bl-modifier -int 0
-    defaults write com.apple.dock wvous-tr-corner -int 0
-    defaults write com.apple.dock wvous-tr-modifier -int 0
-    defaults write com.apple.dock wvous-tl-corner -int 0
-    defaults write com.apple.dock wvous-tl-modifier -int 0
+# Hot corners. Possible values:
+#  0: no-op
+#  2: Mission Control
+#  3: Show application windows
+#  4: Desktop
+#  5: Start screen saver
+#  6: Disable screen saver
+#  7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+#
+# My preferences:
+# Bottom right screen corner → Mission Control
+# Bottom left screen corner → Start screen saver
+- name: Hot corners (br)
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: wvous-br-corner
+    type: int
+    value: 2
+
+- name: Hot corners (br modifier)
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: wvous-br-modifier
+    type: int
+    value: 0
+
+- name: Hot corners (bl)
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: wvous-bl-corner
+    type: int
+    value: 5
+
+- name: Hot corners (bl modifier)
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: wvous-bl-modifier
+    type: int
+    value: 0
+
+- name: Hot corners (tr)
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: wvous-tr-corner
+    type: int
+    value: 0
+
+- name: Hot corners (tr modifier)
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: wvous-tr-modifier
+    type: int
+    value: 0
+
+- name: Hot corners (tl)
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: wvous-tl-corner
+    type: int
+    value: 0
+
+- name: Hot corners (tl modifier)
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: wvous-tl-modifier
+    type: int
+    value: 0
 
 # Apple Mail
 #
 
-- name: Disable send and reply animations in Mail.app
-  shell: |
-    defaults write com.apple.mail DisableReplyAnimations -bool true
-    defaults write com.apple.mail DisableSendAnimations -bool true
+- name: Disable reply animations in Mail.app
+  community.general.osx_defaults:
+    domain: com.apple.mail
+    key: DisableReplyAnimations
+    type: bool
+    value: true
+
+- name: Disable send animations in Mail.app
+  community.general.osx_defaults:
+    domain: com.apple.mail
+    key: DisableSendAnimations
+    type: bool
+    value: true
 
 - name: Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
-  shell: defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+  community.general.osx_defaults:
+    domain: com.apple.mail
+    key: AddressesIncludeNameOnPasteboard
+    type: bool
+    value: false
 
 - name: Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app
   shell: defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\U21a9"
@@ -205,51 +493,97 @@
     defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
 
 - name: Disable inline attachments (just show the icons)
-  shell: defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
+  community.general.osx_defaults:
+    domain: com.apple.mail
+    key: DisableInlineAttachmentViewing
+    type: bool
+    value: true
 
 # iTerm
 #
 
-- name: Don’t display the annoying prompt when quitting iTerm
-  shell: defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+- name: Don't display the annoying prompt when quitting iTerm
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: PromptOnQuit
+    type: bool
+    value: false
 
 # Time Machine
 #
 
 - name: Prevent Time Machine from prompting to use new hard drives as backup volume
-  shell: defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+  community.general.osx_defaults:
+    domain: com.apple.TimeMachine
+    key: DoNotOfferNewDisksForBackup
+    type: bool
+    value: true
 
 # Activity Monitor
 #
 
 - name: Show the main window when launching Activity Monitor
-  shell: defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
+  community.general.osx_defaults:
+    domain: com.apple.ActivityMonitor
+    key: OpenMainWindow
+    type: bool
+    value: true
 
 - name: Visualize CPU usage in the Activity Monitor Dock icon
-  shell: defaults write com.apple.ActivityMonitor IconType -int 5
+  community.general.osx_defaults:
+    domain: com.apple.ActivityMonitor
+    key: IconType
+    type: int
+    value: 5
 
 - name: Show all processes in Activity Monitor
-  shell: defaults write com.apple.ActivityMonitor ShowCategory -int 0
+  community.general.osx_defaults:
+    domain: com.apple.ActivityMonitor
+    key: ShowCategory
+    type: int
+    value: 0
 
 - name: Sort Activity Monitor results by CPU usage
-  shell: |
-    defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
-    defaults write com.apple.ActivityMonitor SortDirection -int 0
+  community.general.osx_defaults:
+    domain: com.apple.ActivityMonitor
+    key: SortColumn
+    type: string
+    value: CPUUsage
+
+- name: Sort Activity Monitor results in descending order
+  community.general.osx_defaults:
+    domain: com.apple.ActivityMonitor
+    key: SortDirection
+    type: int
+    value: 0
 
 # Menu bar
 #
 
 - name: Show battery percentage
-  shell: defaults write com.apple.menuextra.battery ShowPercent -bool true
+  community.general.osx_defaults:
+    domain: com.apple.menuextra.battery
+    key: ShowPercent
+    type: bool
+    value: true
 
 - name: Show volume in menu bar
-  shell: |
-    defaults write com.apple.systemuiserver menuExtras -array \
-        "/System/Library/CoreServices/Menu Extras/Clock.menu" \
-        "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-        "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-        "/System/Library/CoreServices/Menu Extras/Volume.menu"
-    defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.volume" -bool true
+  community.general.osx_defaults:
+    domain: com.apple.systemuiserver
+    key: menuExtras
+    type: array
+    value:
+      - "/System/Library/CoreServices/Menu Extras/Clock.menu"
+      - "/System/Library/CoreServices/Menu Extras/Battery.menu"
+      - "/System/Library/CoreServices/Menu Extras/AirPort.menu"
+      - "/System/Library/CoreServices/Menu Extras/Volume.menu"
+
+- name: Show volume indicator
+  community.general.osx_defaults:
+    domain: com.apple.systemuiserver
+    key: "NSStatusItem Visible com.apple.menuextra.volume"
+    type: bool
+    value: true
 
 # Gatekeeper
 #
@@ -258,5 +592,9 @@
   shell: spctl --master-disable
   become: yes
 
-- name: Disable the “Are you sure you want to open this application?” dialog
-  shell: defaults write com.apple.LaunchServices LSQuarantine -bool false
+- name: Disable the "Are you sure you want to open this application?"" dialog
+  community.general.osx_defaults:
+    domain: com.apple.LaunchServices
+    key: LSQuarantine
+    type: bool
+    value: false
