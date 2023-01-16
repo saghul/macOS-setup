@@ -499,13 +499,83 @@
     type: bool
     value: true
 
-# iTerm
+# iTerm2
 #
 
-- name: Don't display the annoying prompt when quitting iTerm
+- name: Don't display the prompt when quitting iTerm
   community.general.osx_defaults:
     domain: com.googlecode.iterm2
     key: PromptOnQuit
+    type: bool
+    value: false
+
+- name: Don't use Lion style full-screen
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: UseLionStyleFullscreen
+    type: bool
+    value: false
+
+- name: Set compact tab style
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: TabStyleWithAutomaticOption
+    type: int
+    value: 6
+
+- name: Disable tab close button
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: TabsHaveCloseButton
+    type: bool
+    value: true
+
+- name: Hide tab activity indicator
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: HideActivityIndicator
+    type: bool
+    value: true
+
+- name: Hide tab number
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: HideTabNumber
+    type: bool
+    value: true
+
+- name: Hide scroll bars
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: HideScrollbar
+    type: bool
+    value: true
+
+- name: Always show tab bar
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: HideTab
+    type: bool
+    value: false
+
+- name: Disable new output indicator
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: ShowNewOutputIndicator
+    type: bool
+    value: false
+
+- name: Disable stretching tabs to fill the bar
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: StretchTabsToFillBar
+    type: bool
+    value: false
+
+- name: Disable separate window title per tab
+  community.general.osx_defaults:
+    domain: com.googlecode.iterm2
+    key: SeparateWindowTitlePerTab
     type: bool
     value: false
 
