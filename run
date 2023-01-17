@@ -20,11 +20,6 @@ main() {
         exit 1
     fi
 
-    # First, make sure Command Line Tools are installed
-    if [[ ! -d "/Library/Developer/CommandLineTools" ]]; then
-        sudo xcode-select --install
-    fi
-
     if [[ ! -d ".venv" ]]; then
         echo "Creating a Python venv..."
         /usr/bin/python3 -m venv .venv

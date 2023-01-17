@@ -11,6 +11,7 @@ Anyone is of course welcome to fork this project and taylor it to their needs.
 * A **blank** computer running macOS 12.6 (Monterrey)
 * Sign-in into the Mac App Store
 * Add the Terminal app to the *Full Disk Access* section on *Security And Privacy*
+* Install the Xcode Command Line Tools: `sudo xcode-select --install`
 
 ## Installation
 
