@@ -48,10 +48,6 @@
         name: geerlingguy.mac.mas
       tags: ['mas']
 
-    - name: Accept Xcode license
-      shell: xcodebuild -license accept
-      become: yes
-
     - name: Install extra packages from npm
       import_tasks: tasks/extra-packages.yml
       tags: ['extra-packages']
