@@ -39,6 +39,7 @@ homebrew_installed_packages:
   - watchman
   - wget
   - youtube-dl
+  - xcodes
 
 homebrew_cask_apps:
   - android-studio
@@ -91,11 +92,3 @@ mas_uninstalled_apps:
   - { id: 409201541, name: "Pages" }
   - { id: 409203825, name: "Numbers" }
   - { id: 682658836, name: "GarageBand" }
-
-npm_packages:
-  - install-local
-  - npm-check-updates
-  - react-native-cli
-
-ruby_gems:
-  - xcode-install
