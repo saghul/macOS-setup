@@ -3,6 +3,9 @@
 set -o nounset
 set -o pipefail
 
+# Workaround so Ansible finds the "mas" utility.
+export PATH=/opt/homebrew/bin:$PATH
+
 yes_or_no() {
     while true; do
         read -p "$* [y/n]: " yn
