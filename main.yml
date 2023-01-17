@@ -30,6 +30,7 @@
         chdir: "$HOME"
         creates: "$HOME/.nvm/nvm.sh"
       tags: ['node']
+      ignore_errors: true
 
     - name: Install node
       become: no
@@ -42,15 +43,18 @@
       loop:
         - 16
       tags: ['node']
+      ignore_errors: true
 
     - name: Install apps from the Mac App Store
       import_role:
         name: geerlingguy.mac.mas
       tags: ['mas']
+      ignore_errors: true
 
     - name: Install extra packages from npm
       import_tasks: tasks/extra-packages.yml
       tags: ['extra-packages']
+      ignore_errors: true
 
     - name: Apply my macOS defaults
       import_tasks: tasks/macos-defaults.yml
@@ -60,3 +64,4 @@
     - name: Change user shell
       import_tasks: tasks/shell.yml
       tags: ['shell']
+      ignore_errors: true
