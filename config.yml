@@ -98,4 +98,4 @@ npm_packages:
   - react-native-cli
 
 ruby_gems:
-  - xcode-tools
+  - xcode-install
