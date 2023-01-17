@@ -15,6 +15,7 @@ homebrew_installed_packages:
   - ffmpeg
   - fzf
   - gh
+  - git-delta
   - go
   - highlight
   - htop
