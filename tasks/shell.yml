@@ -2,10 +2,10 @@
 - name: Add shell to /etc/shells
   lineinfile:
     path: /etc/shells
-    line: /usr/local/bin/bash
+    line: /opt/homebrew/bin/bash
     state: present
   become: yes
 
 - name: Change user shell to Homebrew installed Bash
-  shell: chsh -s /usr/local/bin/bash "{{ ansible_user_id }}"
+  shell: chsh -s /opt/homebrew/bin/bash "{{ ansible_user_id }}"
   become: yes
