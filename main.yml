@@ -19,6 +19,7 @@
         - homebrew_cask_appdir: /Applications
         - homebrew_cask_accept_external_apps: yes
       tags: ['homebrew']
+      ignore_errors: yes
 
     - name: Install nvm
       become: no
@@ -58,6 +59,7 @@
     - name: Apply my macOS defaults
       import_tasks: tasks/macos-defaults.yml
       tags: ['macos-defaults']
+      ignore_errors: yes
 
     - name: Change user shell
       import_tasks: tasks/shell.yml
