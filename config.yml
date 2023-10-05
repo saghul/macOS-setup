@@ -11,6 +11,7 @@ homebrew_installed_packages:
   - cocoapods
   - coreutils
   - dust
+  - eza
   - fd
   - ffmpeg
   - fzf
