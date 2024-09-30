@@ -627,13 +627,6 @@
     type: int
     value: 0
 
-- name: Show items alphabetically sorted in system settings
-  community.general.osx_defaults:
-    domain: com.apple.systempreferences.plist
-    key: ShowAllMode
-    type: bool
-    value: true
-
 # Menu bar
 #
 
