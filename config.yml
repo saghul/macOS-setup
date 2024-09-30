@@ -48,8 +48,6 @@ homebrew_cask_apps:
   - android-studio
   - blackhole-2ch
   - brave-browser-beta
-  - docker
-  - eloston-chromium
   - firefox-beta
   - font-noto-sans
   - font-sauce-code-pro-nerd-font
@@ -63,7 +61,6 @@ homebrew_cask_apps:
   - iterm2
   - joplin
   - karabiner-elements
-  - kitty
   - libreoffice
   - logitech-options
   - loop
@@ -77,8 +74,6 @@ homebrew_cask_apps:
   - slack
   - spotify
   - thunderbird
-  - virtualbox
-  - virtualbox-extension-pack
   - visual-studio-code
   - vlc
   - whatsapp
