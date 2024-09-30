@@ -66,6 +66,7 @@ homebrew_cask_apps:
   - kitty
   - libreoffice
   - logitech-options
+  - loop
   - microsoft-edge-beta
   - monitorcontrol
   - nextcloud
@@ -84,7 +85,6 @@ homebrew_cask_apps:
   - wireshark
 
 mas_installed_apps:
-  - { id: 417375580, name: "BetterSnapTool" }
   - { id: 533696630, name: "Webcam Settings" }
   - { id: 409183694, name: "Keynote" }
   - { id: 425424353, name: "The Unarchiver" }
